@@ -1,0 +1,8 @@
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: black;
+color: white;
+padding: 0 50px; /* 양옆에 50px씩 패딩을 추가하여 간격을 확보 */
+z-index: 1000;
