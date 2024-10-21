@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Banner from './Banner';
 import ProductGrid from './ProductGrid';
+import './App.css';
 
 function Home() {
   return <p>Welcome to our store! Please choose a category.</p>;
