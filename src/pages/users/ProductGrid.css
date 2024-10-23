@@ -1,0 +1,119 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;.signup-form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .signup-form h1 {
+    color: #1ec800;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .signup-form p {
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .input-group span {
+    display: inline-block;
+    margin-left: 5px;
+    color: #999;
+  }
+  
+  .radio-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .radio-group label {
+    margin-right: 10px;
+  }
+  
+  .radio-group button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .radio-group button.active {
+    background-color: #1ec800;
+    color: white;
+    border-color: #1ec800;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1ec800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submit-button:hover {
+    background-color: #17b300;
+  }
+  
+}
+
+.product-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.product-card h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.product-card p {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.product-card .discount {
+  font-size: 0.9em;
+  color: red;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Banner.css';
 
 const Banner = () => {
@@ -20,7 +20,8 @@ const Banner = () => {
 
    // 모든 카테고리 버튼 클릭 시 ProductGrid로 이동
   const handleCategoryClick = () => {
-    navigate('/product-grid'); // ProductGrid 페이지로 이동
+    //navigate('/product-grid'); // ProductGrid 페이지로 이동
+    navigate('/register'); // 임시 
   };
 
   return (
@@ -40,7 +41,10 @@ const Banner = () => {
               <div className="dropdown-menu">
                 <ul>
                   <li>로그인</li>
-                  <li>회원가입</li>
+                    
+                  <li>
+                    <Link to="/users/Register">회원가입</Link>
+                  </li>
                   <li>내 주문</li>
                   <li>메시지 센터</li>
                   <li>결제</li>

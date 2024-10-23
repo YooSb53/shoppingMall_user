@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import Banner from './Banner';
-import ProductGrid from './ProductGrid';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Banner from './components/layout/Banner';
+import Register from './pages/users/register/Register';
+import ProductGrid from './pages/users/ProductGrid';
 import './App.css';
 
 function Home() {
@@ -14,13 +15,16 @@ function App() {
       <div className="App">
         {/* 상단 배너 */}
         <Banner />
-
+        
         {/* 배너 아래의 동작 페이지 */}
         <div className="content">
           <h2>Better choices, better prices</h2>
           <Routes>
             <Route path="/" element={<Home />} /> {/* 기본 home 페이지 */}
-            <Route path="/product-grid" element={<ProductGrid />} /> {/* ProductGrid 페이지 */}
+            {/* ProductGrid 페이지 */}
+            <Route path="/product-grid" element={<ProductGrid />} /> 
+            {/* 임시 */}
+            <Route path="users/register" element={<Register />} /> 
           </Routes>
         </div>
       </div>
