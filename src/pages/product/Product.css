@@ -1,0 +1,159 @@
+.product-container {
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: flex-start; /* 텍스트를 상단 정렬 */
+  padding: 0px;
+}
+.product-image {
+  margin-right: 100px;  /* 이미지와 텍스트 사이의 간격을 20px로 설정 */
+}
+.product-image img {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  margin-right: 20px; /* 이미지와 텍스트 사이 간격 */
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; /* 텍스트를 가운데 정렬 */
+  font-size  : 16px;
+  font-weight: bold; /* 왼쪽 항목명 굵게 표시 */
+
+}
+
+.product-details table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.product-details tr td {
+  padding: 20px;
+}
+
+/* 상품명 밑에 줄 추가 */
+.product-details tr:nth-child(3) td {
+  border-bottom: 1px solid #484848; /* 상품명 밑에 검은색 테두리 추가 */
+}
+
+/* 사이즈 밑에 줄 추가 */
+.product-details tr:nth-child(5) td {
+  border-bottom: 1px solid #484848; /* 사이즈 밑에 검은색 테두리 추가 */
+}
+
+/* 가격 밑에 줄 추가 */
+.product-details tr:nth-child(6) td {
+  border-bottom: 1px solid #484848; /* 가격 밑에 검은색 테두리 추가 */
+}
+/* 설명 밑에 줄 추가 */
+.product-details tr:nth-child(7) td {
+  border-bottom: 1px solid #484848; /* 가격 밑에 검은색 테두리 추가 */
+}
+.product-details h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-align: center; /* 제목을 가운데 정렬 */
+}
+
+.product-details p {
+  margin: 5px 0;
+  font-size: 1.2em;
+  text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+.product-name{
+  font-size: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* 테두리 겹침 방지 */
+}
+
+td {
+  padding: 10px;
+  text-align: left; /* 모든 셀의 텍스트를 왼쪽 정렬 */
+}
+
+td:first-child {
+  width: 150px; /* 첫 번째 열 너비 고정 */
+}
+
+.product-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  color: black;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd; /* 전체 영역 테두리 */
+  width: fit-content; /* 내용에 맞게 너비 설정 */
+}
+
+.quantity-control button {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-right: 0px solid #ddd; /* 버튼들 사이에 구분선 */
+}
+
+.quantity-control button:last-child {
+  border-right: none; /* 마지막 버튼의 오른쪽 경계선 제거 */
+}
+
+.quantity-display {
+  width: 50px; /* 숫자 표시 공간의 너비 */
+  text-align: center;
+  font-size: 18px;
+  border-left: 1px solid #ddd; /* 왼쪽 경계선 */
+  border-right: 1px solid #ddd; /* 오른쪽 경계선 */
+  padding: 0 20px;
+}
+
+.product-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.wishlist-button, .cart-button2 {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  width: 50px;
+}
+.wishlist-button, .cart-button2, .buy-button {
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.wishlist-button:hover, .cart-button2:hover, .buy-button:hover {
+  background-color: #f0f0f0;
+}
+
+
+.wishlist-button, .cart-button2 {
+  background-repeat: no-repeat; /* 이미지가 반복되지 않도록 */
+  background-position: center; /* 이미지를 버튼 가운데에 위치 */
+  border: none; /* 버튼 테두리 제거 */
+}
+
+.wishlist-button {
+  background-size: 20px; /* 이미지 크기를 버튼 크기에 맞춤 */
+  background-image: url('../../../public/img/free-icon-heart-shape-6704230.png'); /* 이미지 경로 */
+}
+
+.cart-button2 {
+  background-size: 24px; /* 이미지 크기를 버튼 크기에 맞춤 */
+  background-image: url('../../../public/img/free-icon-shopping-cart-8776379.png'); /* 이미지 경로 */
+}
+
+.buy-button {
+  width: 400px;
+}

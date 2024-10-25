@@ -1,49 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ProductGrid.css';
 
-const products = [
-  { id: 1, name: '상품 1', price: '1,394원', discount: '79%', image: 'path-to-image1' },
-  { id: 2, name: '상품 2', price: '7,620원', discount: '31%', image: 'path-to-image2' },
-  { id: 3, name: '상품 3', price: '5,400원', discount: '50%', image: 'path-to-image3' },
-  // 더 많은 상품 추가 가능
-];
-
 const ProductGrid = () => {
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+
+  // 백엔드에서 상품 데이터를 가져오는 함수
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:3307/api/product');
+        const data = await response.json();
+        setProducts(data.products);
+      } catch (error) {
+        console.error('상품을 가져오는 중 오류:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  // 상품을 클릭했을 때 호출되는 함수
+  const handleProductClick = (product) => {
+    console.log('클릭된 상품 정보:', product);
+    navigate('/product', { state: { product } });
+  };
+
   return (
     <div className="product-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-          <span className="discount">{product.discount}</span>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-          <span className="discount">{product.discount}</span>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-          <span className="discount">{product.discount}</span>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-          <span className="discount">{product.discount}</span>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-          <span className="discount">{product.discount}</span>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-          <span className="discount">{product.discount}</span>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>{product.price}</p>
-          <span className="discount">{product.discount}</span>
+      {products.map((product) => (
+        <div 
+          key={product.PRODUCT_SEQ} 
+          className="product-card"
+          onClick={() => handleProductClick(product)} // 클릭 이벤트 추가
+        >
+          <img src={product.PRODUCT_IMAGE} alt={product.PRODUCT_NAME} />
+          <h3>{product.PRODUCT_NAME}</h3>
         </div>
-        
       ))}
     </div>
   );

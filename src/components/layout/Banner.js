@@ -96,11 +96,10 @@ const Banner = () => {
                       </li>
                     </>
                   )}
-                  <li>내 주문</li>
-                  <li>메시지 센터</li>
-                  <li>결제</li>
+                  <li>내 정보</li>
+                  <li>주문내역</li>
                   <li>위시리스트</li>
-                  <li>내 쿠폰</li>
+                  <li>고객센터</li>
                 </ul>
               </div>
             )}
