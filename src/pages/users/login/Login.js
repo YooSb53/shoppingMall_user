@@ -19,9 +19,11 @@ function Login() {
         },
         body: JSON.stringify({ username, password }), // 아이디와 비밀번호 전송
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
+        // 로그인 성공 시 사용자 정보를 로컬 스토리지에 저장
+        localStorage.setItem('userId', username); // 사용자 ID 저장
+        localStorage.setItem('user', JSON.stringify({ username })); // 사용자 정보 저장
         alert(data.message); // 로그인 성공 메시지
         // 로그인 성공 후 다른 페이지로 이동
         navigate('/'); // 로그인 후 이동할 페이지 예시
