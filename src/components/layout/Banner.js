@@ -77,7 +77,6 @@ const Banner = () => {
             {isLoggedIn ? ( // 로그인 상태에 따라 다르게 표시
               <>
                 <span>Hi, {username}</span>
-                <button onClick={handleLogout}>로그아웃</button> {/* 로그아웃 버튼 추가 */}
               </>
             ) : (
               <button className="login-button">로그인 / 회원가입</button>
