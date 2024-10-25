@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Banner from './components/layout/Banner';
-import Register from './pages/users/register/Register';
+import Signup from './pages/users/signup/Signup';
+import Login from './pages/users/login/Login';
 import ProductGrid from './pages/users/ProductGrid';
 import './App.css';
 
@@ -24,7 +25,8 @@ function App() {
             {/* ProductGrid 페이지 */}
             <Route path="/product-grid" element={<ProductGrid />} /> 
             {/* 임시 */}
-            <Route path="users/register" element={<Register />} /> 
+            <Route path="users/signup" element={<Signup />} /> 
+            <Route path="users/login" element={<Login />} /> 
           </Routes>
         </div>
       </div>

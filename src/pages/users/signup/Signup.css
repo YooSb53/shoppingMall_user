@@ -100,3 +100,8 @@ a {
   color: inherit; /* 기본 텍스트 색상 사용 */
   text-decoration: none; /* 밑줄 제거 */
 }
+
+.error-message {
+  color: red; /* 에러 메시지 색상 */
+  font-size: 12px; /* 글자 크기 */
+}
