@@ -28,7 +28,7 @@ const Banner = () => {
 
           if (response.ok) {
             setIsLoggedIn(true);
-            setUsername(data.user.name); // 사용자 이름 설정
+            setUsername(data.user.name); // 사용자 이름 설정이다
           } else {
             console.error(data.message);
           }
