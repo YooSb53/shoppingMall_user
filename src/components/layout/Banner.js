@@ -64,6 +64,15 @@ const Banner = () => {
     setUsername(''); // 사용자 이름 초기화
   };
 
+  const handleRestrictedAccess = (path) => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요합니다.');
+      navigate('/users/Login');
+    } else {
+      navigate(path);
+    }
+  };
+
   return (
     <div className="banner">
       <div className="banner-content">
@@ -96,9 +105,9 @@ const Banner = () => {
                       </li>
                     </>
                   )}
-                  <li>내 정보</li>
-                  <li>주문내역</li>
-                  <li>위시리스트</li>
+                  <li onClick={() => handleRestrictedAccess('/users/mypage')}>내 정보</li>
+                  <li onClick={() => handleRestrictedAccess('/users/myorder')}>주문내역</li>
+                  <li onClick={() => handleRestrictedAccess('/users/mywish')}>위시리스트</li>
                   <li>고객센터</li>
                 </ul>
               </div>

@@ -4,7 +4,8 @@ import Banner from './components/layout/Banner';
 import Signup from './pages/users/signup/Signup';
 import Login from './pages/users/login/Login';
 import Mypage from './pages//users/mypage/Mypage'; // 
-import Wish from './pages//users/wish/Wish'; // 
+import Mywish from './pages//users/mywish/Mywish'; // 
+import Myorder from './pages//users/myorder/Myorder'; // 
 import ProductGrid from './pages/users/ProductGrid';
 import Support from './pages/support/Support'; // 상품 상세 페이지 컴포넌트
 import Product from './pages/product/Product'; // 상품 상세 페이지 컴포넌트
@@ -30,8 +31,10 @@ function App() {
 
             {/* 내 정보 페이지 */}
             <Route path="/users/mypage" element={<Mypage />} />
-            {/* 내 정보 페이지 */}
-            <Route path="/users/wish" element={<Wish />} />
+            {/* 내 장바구니 페이지 */}
+            <Route path="/users/myorder" element={<Myorder />} />
+            {/* 내 장바구니 페이지 */}
+            <Route path="/users/mywish" element={<Mywish />} />
           </Routes>
         </div>
       </div>

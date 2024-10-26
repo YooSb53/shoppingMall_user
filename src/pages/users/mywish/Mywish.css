@@ -1,0 +1,42 @@
+/* Mywish.css */
+.wishlist-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.wishlist-table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.wishlist-item {
+  padding: 10px;
+  text-align: center;
+}
+
+.wishlist-item img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.wishlist-item h3 {
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.wishlist-item p {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.wishlist-item img[alt="Remove from Wishlist"] {
+  height: 24px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.empty-cell {
+  padding: 10px;
+}
