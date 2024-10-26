@@ -13,6 +13,9 @@ const ProductGrid = () => {
         const response = await fetch('http://localhost:3307/api/product');
         const data = await response.json();
         setProducts(data.products);
+        
+        // 가져온 전체 상품 중 처음 12개만 상태에 저장
+        setProducts(data.products.slice(0, 12));
       } catch (error) {
         console.error('상품을 가져오는 중 오류:', error);
       }

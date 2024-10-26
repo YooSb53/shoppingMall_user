@@ -6,6 +6,7 @@ import Login from './pages/users/login/Login';
 import Mypage from './pages//users/mypage/Mypage'; // 
 import Mywish from './pages//users/mywish/Mywish'; // 
 import Myorder from './pages//users/myorder/Myorder'; // 
+import Mybag from './pages//users/mybag/Mybag'; // 
 import ProductGrid from './pages/users/ProductGrid';
 import Support from './pages/support/Support'; // 상품 상세 페이지 컴포넌트
 import Product from './pages/product/Product'; // 상품 상세 페이지 컴포넌트
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<ProductGrid />} /> 
 
             {/* 상품 상세 페이지 */}
+            <Route path="/mybag" element={<Mybag />} /> 
             <Route path="/product" element={<Product />} /> 
             <Route path="/support" element={<Support />} /> 
             {/* 회원가입 및 로그인 페이지 */}

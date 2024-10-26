@@ -53,6 +53,10 @@ const Banner = () => {
     navigate('/'); // 타이틀 클릭 시 홈으로 이동
   };
 
+  const handleMybagClick = () => {
+    navigate('/mybag'); // 카테고리 클릭 시 페이지 이동
+  };
+
   const handleCategoryClick = () => {
     navigate('/register'); // 카테고리 클릭 시 페이지 이동
   };
@@ -81,7 +85,9 @@ const Banner = () => {
             Luckybiky Style Edition
           </h1>
           <input type="text" className="search-bar" placeholder="찾고 싶은 상품을 검색해주세요" />
-          <button className="cart-button">장바구니</button>
+          <button className="cart-button" onClick={handleMybagClick}>
+            장바구니
+          </button>
           <div className="login-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {isLoggedIn ? ( // 로그인 상태에 따라 다르게 표시
               <>
