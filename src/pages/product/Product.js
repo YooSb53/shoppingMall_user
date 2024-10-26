@@ -7,7 +7,7 @@ const Product = () => {
   const { product } = location.state;
 
   const [quantity, setQuantity] = useState(1); // 초기 개수는 1
-
+  const [isWishlisted, setIsWishlisted] = useState(false); // 찜 여부 상태
   // 개수 감소 함수
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -20,6 +20,12 @@ const Product = () => {
     setQuantity(quantity + 1);
   };
 
+  // 찜 버튼 클릭 함수
+  const toggleWishlist = () => {
+    setIsWishlisted(!isWishlisted); // 상태 반전
+  };
+
+  
   return (
     
     <div className="product-container">
@@ -75,7 +81,12 @@ const Product = () => {
        
         {/* 버튼들 */}
         <div className="product-buttons">
-          <button className="wishlist-button"></button>
+          <button className="wishlist-button" onClick={toggleWishlist}>
+            <img
+              src={isWishlisted ? '/img/wish-after.png' : '/img/wish-before.png'}
+              alt="wishList"
+            />
+          </button>
           <button className="cart-button2"></button>
           <button className="buy-button">구매하기</button>
         </div>
