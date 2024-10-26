@@ -1,13 +1,84 @@
-import React , { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import './Product.css';  // 별도의 CSS 파일 사용
+import './Product.css';
 
 const Product = () => {
   const location = useLocation();
   const { product } = location.state;
 
-  const [quantity, setQuantity] = useState(1); // 초기 개수는 1
-  const [isWishlisted, setIsWishlisted] = useState(false); // 찜 여부 상태
+  const [products, setProducts] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+  useEffect(() => {
+    // 상품 데이터와 찜 목록 가져오기
+    fetchProducts();
+    fetchWishlist();
+  }, []);
+
+  useEffect(() => {
+    // 찜 목록을 가져온 후, 해당 상품이 찜 목록에 있는지 확인하여 상태 설정
+    if (wishlist.length > 0) {
+      setIsWishlisted(isProductInWishlist(product.PRODUCT_SEQ));
+    }
+  }, [wishlist, product.PRODUCT_SEQ]);
+
+  const fetchProducts = async () => {
+    const response = await fetch('http://localhost:3307/api/product');
+    const data = await response.json();
+    setProducts(data.products);
+  };
+
+  const fetchWishlist = async () => {
+    const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
+    if (!userId) {
+      console.error("로그인이 필요합니다.");
+      return;
+    }
+  
+    const response = await fetch(`http://localhost:3307/api/wishlist/${userId}`);
+    const data = await response.json();
+    setWishlist(data.wishlist);
+  };
+
+  const handleAddToWishlist = async (productId) => {
+    const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
+    if (!userId) {
+      console.error("로그인이 필요합니다.");
+      return;
+    }
+
+    const response = await fetch('http://localhost:3307/api/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId, productId })
+    });
+    if (response.ok) {
+      setIsWishlisted(true); // UI 업데이트를 위한 즉각 반영
+      alert('상품이 찜목록에 추가되었습니다.');
+      fetchWishlist(); // DB의 찜 목록도 업데이트하여 UI 상태와 동기화
+    }
+  };
+
+  const handleRemoveFromWishlist = async (productId) => {
+    const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
+    const response = await fetch('http://localhost:3307/api/remove', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId, productId })
+    });
+    if (response.ok) {
+      setIsWishlisted(false); // UI 업데이트를 위한 즉각 반영
+      alert('찜이 취소되었습니다.');
+      fetchWishlist(); // DB의 찜 목록도 업데이트하여 UI 상태와 동기화
+    }
+  };
+
   // 개수 감소 함수
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -22,19 +93,24 @@ const Product = () => {
 
   // 찜 버튼 클릭 함수
   const toggleWishlist = () => {
-    setIsWishlisted(!isWishlisted); // 상태 반전
+    if (isWishlisted) {
+      handleRemoveFromWishlist(product.PRODUCT_SEQ);
+    } else {
+      handleAddToWishlist(product.PRODUCT_SEQ);
+    }
   };
 
+  const isProductInWishlist = (productId) => {
+    return wishlist && wishlist.some((item) => item.PRODUCT_SEQ === productId);
+  };
   
   return (
-    
     <div className="product-container">
-        
       <div className="product-image">
         <img 
           src={product.PRODUCT_IMAGE} 
           alt={product.PRODUCT_NAME} 
-          style={{ height: '550px',width: 'auto' }} // 예시로 너비 400px
+          style={{ height: '550px', width: 'auto' }}
         />
       </div>
       <div className="product-details">
@@ -42,7 +118,7 @@ const Product = () => {
           <tr>
             <td>{product.CATEGORY_NAME} : {product.SUBCATEGORY_NAME}</td>
           </tr>
-          <tr >
+          <tr>
             <td>상품명</td>
             <td className="product-name">{product.PRODUCT_NAME}</td>
           </tr>
@@ -78,7 +154,6 @@ const Product = () => {
           </tr>
         </table>
 
-       
         {/* 버튼들 */}
         <div className="product-buttons">
           <button className="wishlist-button" onClick={toggleWishlist}>
@@ -90,7 +165,6 @@ const Product = () => {
           <button className="cart-button2"></button>
           <button className="buy-button">구매하기</button>
         </div>
-
       </div>
     </div>
   );

@@ -1,74 +1,173 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate 임포트
-import './Login.css';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import './Product.css';
 
-function Login() {
-  const [username, setUsername] = useState(''); // 사용자 아이디 상태
-  const [password, setPassword] = useState(''); // 비밀번호 상태
-  const navigate = useNavigate(); // useNavigate 초기화
+const Product = () => {
+  const location = useLocation();
+  const { product } = location.state;
 
-  // 폼 제출 처리 함수
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // 기본 폼 제출 방지
+  const [products, setProducts] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
-    try {
-      const response = await fetch('http://localhost:3307/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }), // 아이디와 비밀번호 전송
-      });
-      const data = await response.json();
-      if (response.ok) {
-        // 로그인 성공 시 사용자 정보를 로컬 스토리지에 저장
-        localStorage.setItem('userId', username); // 사용자 ID 저장
-        localStorage.setItem('user', JSON.stringify({ username })); // 사용자 정보 저장
-        alert(data.message); // 로그인 성공 메시지
-        // 로그인 성공 후 다른 페이지로 이동
-        navigate('/'); // 로그인 후 이동할 페이지 예시
-      } else {
-        const errorData = await response.json();
-        alert(errorData.message); // 로그인 실패 메시지
-      }
-    } catch (error) {
-      console.error('로그인 오류:', error);
-      alert('로그인 중 오류가 발생했습니다.');
+  useEffect(() => {
+    // 상품 데이터와 찜 목록 가져오기
+    fetchProducts();
+    fetchWishlist();
+  }, []);
+
+  useEffect(() => {
+    // 찜 목록을 가져온 후, 해당 상품이 찜 목록에 있는지 확인하여 상태 설정
+    setIsWishlisted(isProductInWishlist(product.PRODUCT_SEQ));
+  }, [wishlist, product.PRODUCT_SEQ]);
+
+  //상품 데이터
+  const fetchProducts = async () => { 
+    const response = await fetch('http://localhost:3307/api/product');
+    const data = await response.json();
+    setProducts(data.products);
+  };
+
+  //좋아요 데이터
+  const fetchWishlist = async () => {
+    const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
+    if (!userId) {
+      console.error("로그인이 필요합니다.");
+      return;
+    }
+  
+    const response = await fetch(`http://localhost:3307/api/wishlist/${userId}`);
+    const data = await response.json();
+    setWishlist(data.wishlist);
+  };
+
+  const handleAddToWishlist = async (productId) => {
+    const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
+    if (!userId) {
+      console.error("로그인이 필요합니다.");
+      return;
+    }
+
+    const response = await fetch('http://localhost:3307/api/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId, productId })
+    });
+    if (response.ok) {
+      fetchWishlist();
+      setIsWishlisted(true);
     }
   };
 
+  const handleRemoveFromWishlist = async (productId) => {
+    const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
+    const response = await fetch('http://localhost:3307/api/remove', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId, productId })
+    });
+    if (response.ok) {
+      fetchWishlist();
+      setIsWishlisted(false);
+    }
+  };
+
+  // 개수 감소 함수
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  // 개수 증가 함수
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  // 찜 버튼 클릭 함수
+  const toggleWishlist = () => {
+    if (isWishlisted) {
+      handleRemoveFromWishlist(product.PRODUCT_SEQ);
+      alert('찜이 취소되었습니다.');
+    } else {
+      handleAddToWishlist(product.PRODUCT_SEQ);
+      alert('상품이 찜목록에 추가되었습니다.');
+    }
+  };
+
+  const isProductInWishlist = (productId) => {
+    return wishlist && wishlist.some((item) => item.PRODUCT_ID === productId);
+  };
+  
   return (
-    <div className="login-container1">
-      <h1 className="clickable-title">
-        Luckybiky Style Edition
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="아이디"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required // 필수 입력 사항
-          />
-        </div>
+    <div className="product-container">
+      <div className="product-image">
+        <img 
+          src={product.PRODUCT_IMAGE} 
+          alt={product.PRODUCT_NAME} 
+          style={{ height: '550px', width: 'auto' }}
+        />
+      </div>
+      <div className="product-details">
+        <table>
+          <tr>
+            <td>{product.CATEGORY_NAME} : {product.SUBCATEGORY_NAME}</td>
+          </tr>
+          <tr>
+            <td>상품명</td>
+            <td className="product-name">{product.PRODUCT_NAME}</td>
+          </tr>
+          <tr>
+            <td>상품코드</td>
+            <td>{product.PRODUCT_CODE}</td>
+          </tr>
+          <tr>
+            <td>색상</td>
+            <td>{product.PRODUCT_COLOR}</td>
+          </tr>
+          <tr>
+            <td>사이즈</td>
+            <td>{product.PRODUCT_SIZE}</td>
+          </tr>
+          <tr>
+            <td>판매가</td>
+            <td>{product.PRODUCT_PRICE}원</td>
+          </tr>
+          <tr>
+            <td>설명</td>
+            <td>{product.PRODUCT_DESCRIPTION}</td>
+          </tr>
+          <tr>
+            <td>수량 선택</td>
+            <td>
+              <div className="quantity-control">
+                <button onClick={decreaseQuantity}>-</button>
+                <span className="quantity-display">{quantity}</span>
+                <button onClick={increaseQuantity}>+</button>
+              </div>
+            </td>
+          </tr>
+        </table>
 
-        <div className="input-group">
-          <input
-            type="password"
-            placeholder="비밀번호"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required // 필수 입력 사항
-          />
+        {/* 버튼들 */}
+        <div className="product-buttons">
+          <button className="wishlist-button" onClick={toggleWishlist}>
+            <img
+              src={isWishlisted ? '/img/wish-after.png' : '/img/wish-before.png'}
+              alt="wishList"
+            />
+          </button>
+          <button className="cart-button2"></button>
+          <button className="buy-button">구매하기</button>
         </div>
-
-        <button type="submit" className="submit-button">
-          로그인
-        </button>
-      </form>
+      </div>
     </div>
   );
-}
+};
 
-export default Login;
+export default Product;

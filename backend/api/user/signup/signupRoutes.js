@@ -3,7 +3,6 @@ const connection = require('../../../../../shoppingmall/backend/config/db_connec
 const router = express.Router();  // router 사용
 
 // 회원가입 API 라우트 (POST) 
-// signupRoutes.js
 
 router.post('/signup', (req, res) => {
   const { username, password, email, name, birthdate, gender, phone } = req.body;
