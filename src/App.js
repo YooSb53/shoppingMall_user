@@ -8,6 +8,7 @@ import Mywish from './pages/users/mywish/Mywish';
 import Myorder from './pages/users/myorder/Myorder'; 
 import Address from './pages/users/address/Address'; 
 import Addaddress from './pages/users/address/Addaddress';
+import Editaddress from './pages/users/address/Editaddress';
 import Cart from './pages/cart/Cart'; 
 import ProductGrid from './pages/users/ProductGrid';
 import Support from './pages/support/Support'; 
@@ -38,6 +39,7 @@ function App() {
               <Route path="mywish" element={<Mywish />} /> {/* 위시리스트 */}
               <Route path="address" element={<Address />} /> {/* 배송지 관리 */}
               <Route path="address/add" element={<Addaddress />} /> {/* 주소 추가 */}
+              <Route path="address/edit" element={<Editaddress />} /> {/* 주소 추가 */}
               <Route path="support" element={<Support />} /> {/* 고객센터 */}
             </Route>
           </Routes>

@@ -1,4 +1,4 @@
-.mypage-container {
+.address-container {
   width: 80%;
   margin: 0 auto;
   padding: 20px;
@@ -7,11 +7,12 @@
   background-color: #f9f9f9;
 }
 
-.mypage-container h2 {
+.address-title {
   font-size: 24px;
   font-weight: bold;
   color: #333;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .address-card {
@@ -22,6 +23,7 @@
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .address-card p {
@@ -35,7 +37,7 @@
   color: #333;
 }
 
-.default-badge {
+.address-default-badge {
   display: inline-block;
   margin-left: 10px;
   padding: 2px 6px;
@@ -45,33 +47,44 @@
   border-radius: 3px;
 }
 
-.address-card button {
-  padding: 8px 12px;
-  margin: 5px 5px 5px 0;
+.address-button-group {
+  margin-top: 10px;
+}
+
+.address-edit-button {
+  padding: 6px 12px;
+  background-color: #4caf50; /* Green for "Edit" */
+  color: #ffffff;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 14px;
-  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 60px; /* 버튼 너비 고정 */
 }
 
-.address-card button:nth-child(1) {
-  background-color: #4caf50; /* Green for "Edit" */
-}
-
-.address-card button:nth-child(1):hover {
+.address-edit-button:hover {
   background-color: #45a049;
 }
 
-.address-card button:nth-child(2) {
+.address-delete-button {
+  padding: 6px 12px;
   background-color: #f44336; /* Red for "Delete" */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 5px;
+  width: 60px; /* 버튼 너비 고정 */
 }
 
-.address-card button:nth-child(2):hover {
+.address-delete-button:hover {
   background-color: #e53935;
 }
 
-.add-address-button {
+.address-add-button {
   display: inline-block;
   padding: 10px 15px;
   background-color: #484848;
@@ -84,11 +97,6 @@
   margin-top: 10px;
 }
 
-.add-address-button:hover {
+.address-add-button:hover {
   background-color: #363636;
-}
-
-p {
-  font-size: 16px;
-  color: #333;
 }
