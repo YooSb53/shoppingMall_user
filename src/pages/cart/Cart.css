@@ -1,0 +1,76 @@
+/* Cart.css */
+
+.cart-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th, .cart-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.cart-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.cart-table img {
+  width: 100px;
+  height: auto;
+}
+
+/* 수량 선택 영역 스타일 */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-control span {
+  width: 30px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* 수량 버튼 색상 및 스타일 */
+.quantity-control button {
+  padding: 5px;
+  margin: 0 5px;
+  background-color: #464646;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.quantity-control button:hover {
+  background-color: #333333;
+}
+
+/* 삭제 버튼 스타일 */
+.cart-table button {
+  background-color: #464646;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-table button:hover {
+  background-color: #333333;
+}
+
+.payment2 {
+  margin: 5px;
+  display: flex;
+  justify-content: flex-end;
+}

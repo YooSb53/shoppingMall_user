@@ -63,6 +63,35 @@ const Product = () => {
     }
   };
 
+  const handleAddToCart = async () => {
+    const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
+    if (!userId) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3307/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId,
+          productId: product.PRODUCT_SEQ,
+          quantity
+        })
+      });
+      if (response.ok) {
+        alert('상품이 장바구니에 추가되었습니다.');
+      } else {
+        console.error('장바구니 추가 중 오류 발생');
+      }
+    } catch (error) {
+      console.error('서버 요청 중 오류 발생:', error);
+    }
+  };
+
   const handleRemoveFromWishlist = async (productId) => {
     const userId = localStorage.getItem('userId'); // 로컬 스토리지에서 사용자 ID 가져오기
     const response = await fetch('http://localhost:3307/api/remove', {
@@ -162,7 +191,7 @@ const Product = () => {
               alt="wishList"
             />
           </button>
-          <button className="cart-button2"></button>
+          <button className="cart-button2" onClick={handleAddToCart}></button>
           <button className="buy-button">구매하기</button>
         </div>
       </div>
