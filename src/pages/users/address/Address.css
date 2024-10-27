@@ -1,0 +1,94 @@
+.mypage-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.mypage-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.address-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.address-card p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.address-card strong {
+  font-size: 18px;
+  color: #333;
+}
+
+.default-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 6px;
+  background-color: #ff9800;
+  color: #ffffff;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.address-card button {
+  padding: 8px 12px;
+  margin: 5px 5px 5px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.address-card button:nth-child(1) {
+  background-color: #4caf50; /* Green for "Edit" */
+}
+
+.address-card button:nth-child(1):hover {
+  background-color: #45a049;
+}
+
+.address-card button:nth-child(2) {
+  background-color: #f44336; /* Red for "Delete" */
+}
+
+.address-card button:nth-child(2):hover {
+  background-color: #e53935;
+}
+
+.add-address-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #484848;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-address-button:hover {
+  background-color: #363636;
+}
+
+p {
+  font-size: 16px;
+  color: #333;
+}

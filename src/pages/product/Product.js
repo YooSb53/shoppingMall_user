@@ -10,7 +10,8 @@ const Product = () => {
   const [wishlist, setWishlist] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
-
+  const userId = localStorage.getItem('userId'); // userId를 localStorage에서 가져오기
+  
   useEffect(() => {
     // 상품 데이터와 찜 목록 가져오기
     fetchProducts();
@@ -108,6 +109,34 @@ const Product = () => {
     }
   };
 
+  //결제
+  const handleImmediatePayment = async () => {
+    try {
+      const response = await fetch('http://localhost:3307/api/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userId,
+          cartItems: [
+            {
+              productId: product.PRODUCT_SEQ,
+              quantity: quantity,
+              price: product.PRODUCT_PRICE,
+            },
+          ],
+        }),
+      });
+
+      const data = await response.json();
+      console.log('결제 성공:', data);
+    } catch (error) {
+      console.error('결제 실패:', error);
+    }
+  };
+
+
   // 개수 감소 함수
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -192,7 +221,7 @@ const Product = () => {
             />
           </button>
           <button className="cart-button2" onClick={handleAddToCart}></button>
-          <button className="buy-button">구매하기</button>
+          <button className="buy-button" onClick={handleImmediatePayment} >구매하기</button>
         </div>
       </div>
     </div>

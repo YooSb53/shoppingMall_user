@@ -112,9 +112,9 @@ const Banner = () => {
                     </>
                   )}
                   <li onClick={() => handleRestrictedAccess('/users/mypage')}>내 정보</li>
-                  <li onClick={() => handleRestrictedAccess('/users/myorder')}>주문내역</li>
-                  <li onClick={() => handleRestrictedAccess('/users/mywish')}>위시리스트</li>
-                  <li>고객센터</li>
+                  <li onClick={() => handleRestrictedAccess('/users/mypage/myorder')}>주문내역</li>
+                  <li onClick={() => handleRestrictedAccess('/users/mypage/mywish')}>위시리스트</li>
+                  <li onClick={() => handleRestrictedAccess('/users/mypage/support')}>고객센터</li>
                 </ul>
               </div>
             )}

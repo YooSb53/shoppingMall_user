@@ -27,6 +27,33 @@ const Cart = () => {
     }
   };
 
+  // Cart.js
+  const handleBulkPayment = async () => {
+    try {
+      const response = await fetch('http://localhost:3307/api/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userId,
+          cartItems: cartItems.map(item => ({
+            productId: item.PRODUCT_SEQ,
+            quantity: item.QUANTITY,
+            price: item.PRODUCT_PRICE, // 상품 가격 추가
+          })),
+        }),
+      });
+
+      const data = await response.json();
+      console.log('결제 성공:', data);
+    } catch (error) {
+      console.error('결제 실패:', error);
+    }
+  };
+
+
+
   const handleQuantityChange = async (productId, newQuantity) => {
     console.log(`Received productId: ${productId}, quantity: ${newQuantity}`);
 
@@ -136,9 +163,8 @@ const Cart = () => {
         <p>장바구니에 상품이 없습니다.</p>
       )}
       <div className="payment2">
-        <button className="payment2">
-          결제하기
-        </button>
+     
+        <button onClick={handleBulkPayment}>장바구니 상품 결제하기</button>
       </div>
     </div>
   );

@@ -1,0 +1,99 @@
+.add-address-container {
+  width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.add-address-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-address-label {
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* 이름, 휴대폰 번호 등 개별 input 필드 */
+.address-name-input,
+.address-phone-input,
+.address-address-input,
+.address-detail-input,
+.request-select {
+  width: 400px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: left;
+}
+
+/* 우편번호와 주소 찾기 버튼 그룹 */
+.address-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.address-postcode-input {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.find-postcode-button {
+  width: 100px;
+  height: 37px;
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+/* 배송 요청사항 select 필드 */
+.request-select {
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* 기본 배송지 체크박스 */
+.default-checkbox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px 0;
+}
+
+.default-checkbox-input {
+  margin-right: 5px;
+}
+
+.default-checkbox-label {
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* 저장 버튼 */
+.save-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #464646;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.default-label{
+  text-align: left;
+  height: 10px;
+}
