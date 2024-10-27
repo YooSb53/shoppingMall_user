@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate 임포트
 
-function Mybag() {
+function Cart() {
   return (
     <div className="login-container1">
       나의 장바구니 기능 
@@ -9,4 +9,4 @@ function Mybag() {
   );
 }
 
-export default Mybag;
+export default Cart;
