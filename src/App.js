@@ -13,6 +13,8 @@ import Cart from './pages/cart/Cart';
 import ProductGrid from './pages/users/ProductGrid';
 import Support from './pages/support/Support'; 
 import Product from './pages/product/Product'; 
+import Payment from './pages/payment/Payment'; 
+
 import './App.css';
 
 function App() {
@@ -27,7 +29,8 @@ function App() {
             <Route path="/cart" element={<Cart />} /> 
             <Route path="/product" element={<Product />} /> 
             <Route path="/support" element={<Support />} />   
-
+            <Route path="payment" element={<Payment />} /> {/* 결제창 */}
+            
             {/* 회원가입 및 로그인 페이지 */}
             <Route path="/users/signup" element={<Signup />} />
             <Route path="/users/login" element={<Login />} />
@@ -39,8 +42,9 @@ function App() {
               <Route path="mywish" element={<Mywish />} /> {/* 위시리스트 */}
               <Route path="address" element={<Address />} /> {/* 배송지 관리 */}
               <Route path="address/add" element={<Addaddress />} /> {/* 주소 추가 */}
-              <Route path="address/edit" element={<Editaddress />} /> {/* 주소 추가 */}
+              <Route path="address/edit" element={<Editaddress />} /> {/* 주소 수정 */}
               <Route path="support" element={<Support />} /> {/* 고객센터 */}
+              
             </Route>
           </Routes>
         </div>

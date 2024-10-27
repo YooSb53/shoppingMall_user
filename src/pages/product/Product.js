@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Product.css';
 
 const Product = () => {
@@ -11,7 +11,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const userId = localStorage.getItem('userId'); // userId를 localStorage에서 가져오기
-  
+  const navigate = useNavigate(); // navigate 함수 추가
   useEffect(() => {
     // 상품 데이터와 찜 목록 가져오기
     fetchProducts();
@@ -110,30 +110,19 @@ const Product = () => {
   };
 
   //결제
-  const handleImmediatePayment = async () => {
-    try {
-      const response = await fetch('http://localhost:3307/api/payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: userId,
-          cartItems: [
-            {
-              productId: product.PRODUCT_SEQ,
-              quantity: quantity,
-              price: product.PRODUCT_PRICE,
-            },
-          ],
-        }),
-      });
-
-      const data = await response.json();
-      console.log('결제 성공:', data);
-    } catch (error) {
-      console.error('결제 실패:', error);
-    }
+  const handleImmediatePayment = () => {
+    // Calculate the total price
+    const total = product.PRODUCT_PRICE * quantity;
+  
+    // Navigate to the payment page with order details
+    navigate('/payment', {
+      state: {
+        userId,
+        product,
+        quantity,
+        total,
+      },
+    });
   };
 
 

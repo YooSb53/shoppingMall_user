@@ -39,50 +39,57 @@ router.post('/payment', (req, res) => {
   });
 });
 
+router.get('/payment/:userId', (req, res) => {
+  const userId = req.params.userId;
 
-// router.post('/payment', (req, res) => {
-//   const { userId, paymentType, items } = req.body; // paymentType은 'cart' 또는 'direct'
-//   const paymentDate = new Date();
+  // 1. 특정 userId의 결제 내역을 payment 테이블에서 조회
+  const paymentQuery = 'SELECT * FROM payment WHERE USER_ID = ?';
 
-//   // payment 테이블에 결제 정보 저장
-//   const insertPaymentQuery = `
-//     INSERT INTO payment (USER_ID, PAYMENT_DATE) VALUES (?, ?)
-//   `;
-//   connection.query(insertPaymentQuery, [userId, paymentDate], (error, result) => {
-//     if (error) return res.status(500).json({ message: '결제 생성 중 오류 발생', error });
+  connection.query(paymentQuery, [userId], (error, payments) => {
+    if (error) {
+      console.error('결제 내역 조회 중 오류 발생:', error);
+      return res.status(500).json({ message: '결제 내역 조회 중 오류가 발생했습니다.' });
+    }
 
-//     const paymentId = result.insertId; // 생성된 payment ID 가져오기
+    if (payments.length === 0) {
+      return res.status(404).json({ message: '결제 내역이 없습니다.' });
+    }
 
-//     // PAYMENT_ITEM 테이블에 각 상품 정보 추가
-//     const insertPaymentItemQuery = `
-//       INSERT INTO payment_item (PAYMENT_SEQ, PRODUCT_SEQ, QUANTITY, PRICE) VALUES (?, ?, ?, ?)
-//     `;
+    const paymentIds = payments.map(payment => payment.PAYMENT_SEQ);
 
-//     const paymentItems = items.map(item => [
-//       paymentId,
-//       item.productId,
-//       item.quantity,
-//       item.price
-//     ]);
+    // 2. 각 결제의 결제 항목(payment_item)을 조회하면서 product 테이블과 조인하여 상품 이름과 이미지 가져오기
+    const paymentItemsQuery = `
+      SELECT pi.*, p.PRODUCT_NAME, p.PRODUCT_IMAGE 
+      FROM payment_item pi
+      JOIN product p ON pi.PRODUCT_SEQ = p.PRODUCT_SEQ
+      WHERE pi.PAYMENT_SEQ IN (?)
+    `;
 
-//     connection.query(insertPaymentItemQuery, [paymentItems], (error) => {
-//       if (error) return res.status(500).json({ message: '결제 상품 추가 중 오류 발생', error });
+    connection.query(paymentItemsQuery, [paymentIds], (error, paymentItems) => {
+      if (error) {
+        console.error('결제 항목 조회 중 오류 발생:', error);
+        return res.status(500).json({ message: '결제 항목 조회 중 오류가 발생했습니다.' });
+      }
 
-//       if (paymentType === 'cart') {
-//         // 장바구니 결제인 경우, 해당 상품들을 장바구니에서 삭제
-//         const deleteCartQuery = `DELETE FROM cart WHERE USER_ID = ? AND PRODUCT_SEQ IN (?)`;
-//         const productIds = items.map(item => item.productId);
+      // 결제 내역과 결제 항목을 구조화하여 응답
+      const responseData = payments.map(payment => ({
+        ...payment,
+        items: paymentItems
+          .filter(item => item.PAYMENT_SEQ === payment.PAYMENT_SEQ)
+          .map(item => ({
+            PRODUCT_SEQ: item.PRODUCT_SEQ,
+            PRODUCT_NAME: item.PRODUCT_NAME,
+            QUANTITY: item.QUANTITY,
+            PRICE: item.PRICE,
+            PRODUCT_IMAGE: item.PRODUCT_IMAGE ? `data:image/jpeg;base64,${item.PRODUCT_IMAGE.toString('base64')}` : null // 이미지를 base64로 변환
+          }))
+      }));
 
-//         connection.query(deleteCartQuery, [userId, productIds], (error) => {
-//           if (error) return res.status(500).json({ message: '장바구니에서 상품 삭제 중 오류 발생', error });
-//           res.status(200).json({ message: '장바구니 결제가 완료되었습니다.' });
-//         });
-//       } else {
-//         res.status(200).json({ message: '즉시 결제가 완료되었습니다.' });
-//       }
-//     });
-//   });
-// });
+      res.status(200).json({ payments: responseData });
+    });
+  });
+});
+
 
 
 module.exports = router;
