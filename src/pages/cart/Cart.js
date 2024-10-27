@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const userId = localStorage.getItem('userId');
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (userId) {
       fetchCartItems();
@@ -27,31 +28,10 @@ const Cart = () => {
     }
   };
 
-  // Cart.js
-  const handleBulkPayment = async () => {
-    try {
-      const response = await fetch('http://localhost:3307/api/payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: userId,
-          cartItems: cartItems.map(item => ({
-            productId: item.PRODUCT_SEQ,
-            quantity: item.QUANTITY,
-            price: item.PRODUCT_PRICE, // 상품 가격 추가
-          })),
-        }),
-      });
-
-      const data = await response.json();
-      console.log('결제 성공:', data);
-    } catch (error) {
-      console.error('결제 실패:', error);
-    }
+  const handleBulkPayment = () => {
+    // 결제 페이지로 cartItems를 함께 넘김
+    navigate('/payment', { state: { cartItems } });
   };
-
 
 
   const handleQuantityChange = async (productId, newQuantity) => {

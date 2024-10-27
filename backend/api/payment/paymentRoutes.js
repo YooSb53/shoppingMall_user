@@ -57,9 +57,9 @@ router.get('/payment/:userId', (req, res) => {
 
     const paymentIds = payments.map(payment => payment.PAYMENT_SEQ);
 
-    // 2. 각 결제의 결제 항목(payment_item)을 조회하면서 product 테이블과 조인하여 상품 이름과 이미지 가져오기
+    // 2. 각 결제의 결제 항목(payment_item)을 조회하면서 product 테이블과 조인하여 상품 이름, 이미지, 단가 가져오기
     const paymentItemsQuery = `
-      SELECT pi.*, p.PRODUCT_NAME, p.PRODUCT_IMAGE 
+      SELECT pi.*, p.PRODUCT_NAME, p.PRODUCT_IMAGE, p.PRODUCT_PRICE
       FROM payment_item pi
       JOIN product p ON pi.PRODUCT_SEQ = p.PRODUCT_SEQ
       WHERE pi.PAYMENT_SEQ IN (?)
@@ -71,6 +71,11 @@ router.get('/payment/:userId', (req, res) => {
         return res.status(500).json({ message: '결제 항목 조회 중 오류가 발생했습니다.' });
       }
 
+      // 결제 항목에 대해 가격과 수량을 로그로 출력
+      paymentItems.forEach(item => {
+        console.log(`상품명: ${item.PRODUCT_NAME}, 수량: ${item.QUANTITY}, 단가: ${item.PRODUCT_PRICE}, 총 가격: ${item.PRICE}`);
+      });
+
       // 결제 내역과 결제 항목을 구조화하여 응답
       const responseData = payments.map(payment => ({
         ...payment,
@@ -80,7 +85,8 @@ router.get('/payment/:userId', (req, res) => {
             PRODUCT_SEQ: item.PRODUCT_SEQ,
             PRODUCT_NAME: item.PRODUCT_NAME,
             QUANTITY: item.QUANTITY,
-            PRICE: item.PRICE,
+            PRICE: item.PRICE, // 결제 항목에서의 개별 가격
+            PRODUCT_PRICE: item.PRODUCT_PRICE, // 상품의 단가
             PRODUCT_IMAGE: item.PRODUCT_IMAGE ? `data:image/jpeg;base64,${item.PRODUCT_IMAGE.toString('base64')}` : null // 이미지를 base64로 변환
           }))
       }));
@@ -89,7 +95,6 @@ router.get('/payment/:userId', (req, res) => {
     });
   });
 });
-
 
 
 module.exports = router;

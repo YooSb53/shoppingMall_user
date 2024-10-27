@@ -63,19 +63,17 @@ router.get('/cart/:userId', (req, res) => {
 
 
 // 장바구니 상품 수량 업데이트
-router.put('/cart/update', (req, res) => {
-  const { userId, productId, quantity } = req.body;
-  console.log("Received userId:", userId, "productId:", productId, "quantity:", quantity);
+router.put('/api/cart/update-del-state', (req, res) => {
+  const { userId, cartItems } = req.body;
+  const productIds = cartItems.map(item => item.productId);
 
-  const updateQuery = 'UPDATE cart SET QUANTITY = ? WHERE USER_ID = ? AND PRODUCT_SEQ = ?';
-  connection.query(updateQuery, [quantity, userId, productId], (error, results) => {
+  const query = 'UPDATE cart SET DEL_STATE = 0 WHERE USER_ID = ? AND PRODUCT_SEQ IN (?)';
+  connection.query(query, [userId, productIds], (error, results) => {
     if (error) {
-      console.error("쿼리 오류:", error);
-      return res.status(500).json({ message: '수량 업데이트 중 오류 발생', error });
+      console.error('DEL_STATE 업데이트 중 오류 발생:', error);
+      return res.status(500).json({ message: 'DEL_STATE 업데이트 중 오류가 발생했습니다.' });
     }
-    
-    console.log("쿼리 결과:", results);  // 쿼리 결과를 출력
-    res.status(200).json({ message: '상품 수량이 업데이트되었습니다.' });
+    res.status(200).json({ message: 'DEL_STATE가 성공적으로 업데이트되었습니다.' });
   });
 });
 
