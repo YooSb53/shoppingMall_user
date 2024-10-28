@@ -57,8 +57,8 @@ function Mypage() {
             배송지 관리
           </li>
           <li
-            onClick={() => handleRestrictedAccess('/users/mypage/inquiries')}
-            className={activeItem === '/users/mypage/inquiries' ? 'mypage-active' : ''}
+            onClick={() => handleRestrictedAccess('/users/mypage/question')}
+            className={activeItem === '/users/mypage/question' ? 'mypage-active' : ''}
           >
             문의사항
           </li>

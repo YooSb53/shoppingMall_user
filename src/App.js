@@ -9,11 +9,13 @@ import Myorder from './pages/users/myorder/Myorder';
 import Address from './pages/users/address/Address'; 
 import Addaddress from './pages/users/address/Addaddress';
 import Editaddress from './pages/users/address/Editaddress';
+import Question from './pages/users/question/Question';
 import Cart from './pages/cart/Cart'; 
 import ProductGrid from './pages/users/ProductGrid';
 import Support from './pages/support/Support'; 
 import Product from './pages/product/Product'; 
 import Payment from './pages/payment/Payment'; 
+
 
 import './App.css';
 
@@ -28,9 +30,9 @@ function App() {
             <Route path="/" element={<ProductGrid />} /> 
             <Route path="/cart" element={<Cart />} /> 
             <Route path="/product" element={<Product />} /> 
-            <Route path="/support" element={<Support />} />   
-            <Route path="payment" element={<Payment />} /> {/* 결제창 */}
+            <Route path="/payment" element={<Payment />} /> {/* 결제창 */}
             
+
             {/* 회원가입 및 로그인 페이지 */}
             <Route path="/users/signup" element={<Signup />} />
             <Route path="/users/login" element={<Login />} />
@@ -44,6 +46,7 @@ function App() {
               <Route path="address/add" element={<Addaddress />} /> {/* 주소 추가 */}
               <Route path="address/edit" element={<Editaddress />} /> {/* 주소 수정 */}
               <Route path="support" element={<Support />} /> {/* 고객센터 */}
+              <Route path="question" element={<Question />} /> {/* 문의사항 */}
               
             </Route>
           </Routes>
