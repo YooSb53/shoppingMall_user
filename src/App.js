@@ -11,6 +11,8 @@ import Addaddress from './pages/users/address/Addaddress';
 import Editaddress from './pages/users/address/Editaddress';
 import Question from './pages/users/question/Question';
 import Cart from './pages/cart/Cart'; 
+import Searchresult from './pages/searchresult/Searchresult'; 
+import Images from './pages/searchresult/Images'; 
 import ProductGrid from './pages/users/ProductGrid';
 import Support from './pages/support/Support'; 
 import Product from './pages/product/Product'; 
@@ -31,7 +33,8 @@ function App() {
             <Route path="/cart" element={<Cart />} /> 
             <Route path="/product" element={<Product />} /> 
             <Route path="/payment" element={<Payment />} /> {/* 결제창 */}
-            
+            <Route path="/searchresult" element={<Searchresult />} /> {/* 검색창 */}
+            <Route path="/images" element={<Images />} /> {/* 검색창 */}
 
             {/* 회원가입 및 로그인 페이지 */}
             <Route path="/users/signup" element={<Signup />} />

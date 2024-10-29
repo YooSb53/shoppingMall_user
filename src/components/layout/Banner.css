@@ -1,20 +1,78 @@
-/* 전체 컨테이너 가운데 정렬 */
+/* 검색바 컨테이너 */
+.search-bar-container {
+  position: relative;
+  width: 400px;
+  margin-left: auto; /* 자동 여백으로 중앙 정렬 */
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* 검색 입력 필드 */
+.search-input {
+  width: 100%;
+  padding: 10px 70px 10px 15px; /* 오른쪽 여백을 조정하여 버튼을 위한 공간 확보 */
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+/* 검색 버튼 */
+.search-button {
+  position: absolute;
+  right: 5px; /* 검색 버튼과 겹치지 않도록 간격 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 추가 버튼 */
+.extra-button {
+  position: absolute;
+  right: 31px; /* extra-button과의 간격 확보 */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* 검색 아이콘 이미지 */
+.search-icon {
+  width: 25px;
+  height: 25px;
+}
+.search-icon2 {
+  width: 24px;
+  height: 23px;
+}
+/* 배너 기본 설정 */
 .banner {
   display: flex;
-  justify-content: center; /* 가로 가운데 정렬 */
-  align-items: center; /* 세로 가운데 정렬 */
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   background-color: black;
   color: white;
 }
 
-/* 배너 내부 레이아웃 설정 */
 .banner-content {
   width: 100%;
-  max-width: 1200px; /* 너비를 제한하여 가운데 정렬 */
+  max-width: 1200px;
   display: flex;
-  flex-direction: column; /* 수직 정렬 */
-  align-items: center; /* 수평으로 가운데 정렬 */
+  flex-direction: column;
+  align-items: center;
 }
 
 .top-row {
@@ -26,18 +84,10 @@
 
 .bottom-row {
   display: flex;
-  justify-content: flex-start; /* 왼쪽 정렬 */
+  justify-content: flex-start;
   align-items: center;
-  gap: 10px; /* 버튼 간의 간격 */
+  gap: 10px;
 }
-
-.search-bar {
-  padding: 10px;
-  width: 470px; /* 검색창의 너비 */
-  border-radius: 20px;
-}
-
-
 
 .login-container {
   position: relative;
@@ -54,10 +104,6 @@
   font-weight: bold;
   width: 100px;
 }
-
-/* .cart-button {
-  margin-left: 200px; 
-} */
 
 .dropdown-menu {
   position: absolute;
@@ -86,53 +132,10 @@
   cursor: pointer;
 }
 
-/* 카테고리 네비게이션 */
-.category-nav {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
 .category-button {
   background-color: #333;
   padding: 10px 20px;
   color: white;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.category-dropdown {
-  position: absolute;
-  background-color: white;
-  color: black;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.category-dropdown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.category-dropdown ul li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.category-dropdown ul li:hover {
-  background-color: #f1f1f1;
-}
-
-.nav-item {
-  padding: 10px 20px;
-  background-color: #333;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-.nav-item:hover {
-  background-color: #f90;
 }

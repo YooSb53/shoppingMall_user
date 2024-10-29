@@ -1,0 +1,70 @@
+/* 모달 배경 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 컨테이너 */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content .upload-box {
+  border: 2px dashed #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  cursor: pointer;
+  color: #888;
+}
+
+.modal-content input[type="file"] {
+  display: none;
+}
+
+.modal-content .input-link {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  width: calc(50% - 20px); /* 양쪽 간격을 고려하여 너비 조정 */
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-right: 10px; /* 오른쪽 여백 추가 */
+}
+
+.modal-content .close-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px; /* 오른쪽 여백 추가 */
+}
+
+.modal-content .search-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

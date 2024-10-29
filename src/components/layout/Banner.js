@@ -1,24 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Banner.css';
+import './image_Search_modal.css';
 
 const Banner = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [fileLink, setFileLink] = useState('');
+  const fileInputRef = useRef(null);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // 로그인 상태 확인
-    const userId = localStorage.getItem('userId'); // 사용자 ID 가져오기
-    const user = localStorage.getItem('user'); // 사용자 정보 가져오기
+  const handleSearch = () => {
+    navigate('/Searchresult', { state: { searchQuery } });
+  };
 
-    // 콘솔에 출력하여 확인
+  const handleCategoryClick = () => {
+    setIsModalOpen(true); // 버튼 클릭 시 모달 열기
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      console.log('Uploaded file:', file);
+      setIsModalOpen(false); // 파일이 선택되면 모달 닫기
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleLinkChange = (e) => {
+    setFileLink(e.target.value);
+  };
+
+  const handleLinkSearch = () => {
+    console.log('Link:', fileLink);
+    setIsModalOpen(false); // 링크 입력 후 모달 닫기
+  };
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const user = localStorage.getItem('user');
+
     console.log('User ID:', userId);
     console.log('User Info:', user);
 
     if (userId) {
-      // API 호출하여 사용자 정보 가져오기
       const checkLoginStatus = async () => {
         try {
           const response = await fetch(`http://localhost:3307/api/user/${userId}`);
@@ -28,7 +60,7 @@ const Banner = () => {
 
           if (response.ok) {
             setIsLoggedIn(true);
-            setUsername(data.user.name); // 사용자 이름 설정이다
+            setUsername(data.user.name);
           } else {
             console.error(data.message);
           }
@@ -50,22 +82,18 @@ const Banner = () => {
   };
 
   const handleTitleClick = () => {
-    navigate('/'); // 타이틀 클릭 시 홈으로 이동
+    navigate('/');
   };
 
   const handleCartClick = () => {
-    navigate('/cart'); // 카테고리 클릭 시 페이지 이동
-  };
-
-  const handleCategoryClick = () => {
-    navigate('/register'); // 카테고리 클릭 시 페이지 이동
+    navigate('/cart');
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userId'); // 로컬 스토리지에서 사용자 ID 삭제
-    localStorage.removeItem('user'); // 로컬 스토리지에서 사용자 정보 삭제
-    setIsLoggedIn(false); // 로그인 상태를 false로 변경
-    setUsername(''); // 사용자 이름 초기화
+    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    setUsername('');
   };
 
   const handleRestrictedAccess = (path) => {
@@ -84,12 +112,26 @@ const Banner = () => {
           <h1 className="clickable-title" onClick={handleTitleClick}>
             Luckybiky Style Edition
           </h1>
-          <input type="text" className="search-bar" placeholder="찾고 싶은 상품을 검색해주세요" />
+          <div className="search-bar-container">
+            <input 
+              type="text" 
+              className="search-input" 
+              placeholder="찾고 싶은 상품을 검색해주세요" 
+              value={searchQuery} 
+              onChange={(e) => setSearchQuery(e.target.value)} 
+            />
+            <button className="search-button" onClick={handleSearch}>
+              <img src="/img/search.png" className="search-icon" />
+            </button>
+            <button className="extra-button" onClick={handleCategoryClick}>
+              <img src="/img/in3.png" className="search-icon2" />
+            </button>
+          </div>
           <button className="cart-button" onClick={handleCartClick}>
             장바구니
           </button>
           <div className="login-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            {isLoggedIn ? ( // 로그인 상태에 따라 다르게 표시
+            {isLoggedIn ? (
               <>
                 <span>Hi, {username}</span>
               </>
@@ -129,6 +171,37 @@ const Banner = () => {
           <button className="category-button">공동대첩</button>
         </div>
       </div>
+
+      {/* 파일 업로드 모달 */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>이미지 검색</h2>
+            <div 
+              className="upload-box" 
+              onClick={() => fileInputRef.current.click()}
+            >
+              여기에 이미지를 드래그하거나 <strong>파일을 업로드</strong>하세요.
+            </div>
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              style={{ display: 'none' }} 
+              onChange={handleFileChange}
+            />
+            <p>또는</p>
+            <input 
+              type="text" 
+              className="input-link" 
+              placeholder="이미지 링크 붙여넣기" 
+              value={fileLink} 
+              onChange={handleLinkChange} 
+            />
+            <button className="close-button" onClick={handleLinkSearch}>검색</button>
+            <button className="close-button" onClick={handleCloseModal}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
